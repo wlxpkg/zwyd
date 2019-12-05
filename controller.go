@@ -1,9 +1,11 @@
 package zwyd
 
 import (
-	. "github.com/wlxpkg/base/config"
 	"net/http"
 	"strings"
+
+	. "github.com/wlxpkg/base"
+	. "github.com/wlxpkg/base/config"
 
 	"github.com/gin-gonic/gin"
 )
