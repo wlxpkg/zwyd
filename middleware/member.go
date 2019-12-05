@@ -10,8 +10,8 @@ import (
 	"bytes"
 	"errors"
 	. "github.com/wlxpkg/base"
-	. "github.com/wlxpkg/zwyd"
 	"github.com/wlxpkg/base/model"
+	. "github.com/wlxpkg/zwyd"
 	"io/ioutil"
 	"strings"
 	"time"
@@ -106,7 +106,7 @@ func getPermission(c *gin.Context, userID int64) bool {
 
 // getRoute 获取本次请求匹配的路由
 // rtype 路由类型, 0:guest, 1:member
-func getRoute(path, method, rtype int) (route string) {
+func getRoute(path, method string, rtype int) (route string) {
 
 	var allRoute []string
 	switch rtype {
