@@ -37,6 +37,7 @@ type Controller struct {
 	ClientID   string
 	AppName    string
 	AppVersion string
+	AppID      int
 }
 
 func NewController(ctx *gin.Context) (ctl *Controller) {
@@ -85,8 +86,15 @@ func (ctl *Controller) getHeaders() {
 	ctl.Jwt = jwt
 	ctl.Client = c.GetHeader("client")
 	ctl.ClientID = c.GetHeader("client-id")
-	ctl.AppName = c.GetHeader("app-name")
+	ctl.AppName = c.GetHeader("client-name")
 	ctl.AppVersion = c.GetHeader("version")
+
+	appid := c.GetHeader("appid")
+	if appid != "" {
+		ctl.AppID, _ = String2Int(appid)
+	} else {
+		ctl.AppID = 1
+	}
 }
 
 // CheckSecret 检测 ServiceSecret,
