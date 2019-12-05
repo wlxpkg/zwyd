@@ -14,7 +14,6 @@ import (
 	. "github.com/wlxpkg/base/config"
 	"github.com/wlxpkg/base/log"
 	"github.com/wlxpkg/base/req"
-	. "github.com/wlxpkg/zwyd"
 )
 
 type Restful struct {
