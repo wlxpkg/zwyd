@@ -1,4 +1,4 @@
-package pkg
+package zwyd
 
 import (
 	. "github.com/wlxpkg/base/config"

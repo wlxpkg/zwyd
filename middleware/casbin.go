@@ -98,7 +98,7 @@ func Casbin() gin.HandlerFunc {
 	}
 }
 
-func addLog(c *gin.Context, adminId string, bodyString string) {
+func addLog(c *gin.Context, adminID, bodyString string) {
 	path := c.Request.URL.Path
 	method := c.Request.Method
 
@@ -121,7 +121,7 @@ func addLog(c *gin.Context, adminId string, bodyString string) {
 	}
 
 	log := model.AdminOperationLog{
-		UserId:  adminId,
+		UserId:  adminID,
 		Path:    "/" + Config.Redis.Prefix + path,
 		Method:  method,
 		Ip:      c.ClientIP(),

@@ -8,12 +8,14 @@ package middleware
 
 import (
 	"errors"
-	. "github.com/wlxpkg/base"
-	"github.com/wlxpkg/base/biz"
-	"github.com/wlxpkg/base/log"
 	"net/http"
 	"regexp"
 	"strings"
+
+	. "github.com/wlxpkg/base"
+	"github.com/wlxpkg/base/biz"
+	"github.com/wlxpkg/base/log"
+	. "github.com/wlxpkg/zwyd"
 
 	"github.com/gin-gonic/gin"
 )
@@ -44,15 +46,15 @@ func getUser(c *gin.Context) (userInfo map[string]string, err error) {
 		return
 	}
 
-	user_id, err := biz.Jwt2Token(jwt)
-	// fmt.Printf("user_id:%+v\n", user_id)
+	userID, err := biz.Jwt2Token(jwt)
+	// fmt.Printf("user_id:%+v\n", userID)
 
-	if user_id == "" || err != nil {
+	if userID == "" || err != nil {
 		err = errors.New("ERR_INVALID_TOKEN")
 		return
 	}
 
-	userInfo = biz.TokenGetUser(user_id)
+	userInfo = biz.TokenGetUser(userID)
 	len := len(userInfo)
 
 	if len == 0 {

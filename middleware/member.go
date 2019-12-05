@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"errors"
 	. "github.com/wlxpkg/base"
+	. "github.com/wlxpkg/zwyd"
 	"github.com/wlxpkg/base/model"
 	"io/ioutil"
 	"strings"
@@ -105,7 +106,7 @@ func getPermission(c *gin.Context, userID int64) bool {
 
 // getRoute 获取本次请求匹配的路由
 // rtype 路由类型, 0:guest, 1:member
-func getRoute(path string, method string, rtype int) (route string) {
+func getRoute(path, method, rtype int) (route string) {
 
 	var allRoute []string
 	switch rtype {
@@ -132,13 +133,13 @@ func getRoute(path string, method string, rtype int) (route string) {
 	return
 }
 
-func checkRole(userID int64, route string, method string, clientID string) (permission bool) {
+func checkRole(userID int64, route, method, clientID string) (permission bool) {
 	// return 0
 	roleIds := model.GetRoleIds(route, method)
 	permission = false
 
-	for _, roleId := range roleIds {
-		expireAt := model.MemberRole(userID, roleId, clientID)
+	for _, roleID := range roleIds {
+		expireAt := model.MemberRole(userID, roleID, clientID)
 
 		if expireAt == "" {
 			return false
