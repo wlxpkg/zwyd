@@ -10,7 +10,6 @@ import (
 	"errors"
 	"net/http"
 
-	. "github.com/wlxpkg/base"
 	"github.com/wlxpkg/base/log"
 	. "github.com/wlxpkg/zwyd"
 
