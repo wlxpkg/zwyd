@@ -18,14 +18,12 @@ type UserInfo struct {
 	Nickname   string `json:"nickname"`
 	Pid        int64  `json:"pid"`
 	OfficialID string `json:"official_id"`
-	HasFlower  bool   `json:"has_flower"`
 }
 
 type Middleware struct {
 	Permission bool
 	UserID     int64
 	UserInfo   UserInfo
-	Flower     int64
 }
 
 type Controller struct {
@@ -33,7 +31,6 @@ type Controller struct {
 	UserID     int64
 	UserInfo   UserInfo
 	Permission bool
-	Flower     int64
 	Jwt        string
 	Client     string
 	ClientID   string
@@ -75,7 +72,6 @@ func (ctl *Controller) getLoginInfo() {
 		ctl.UserID = middleware.UserID
 		ctl.UserInfo = middleware.UserInfo
 		ctl.Permission = middleware.Permission
-		ctl.Flower = middleware.Flower
 	}
 }
 

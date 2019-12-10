@@ -2,19 +2,19 @@
  * @Author: qiuling
  * @Date: 2019-06-20 16:58:11
  * @Last Modified by: qiuling
- * @Last Modified time: 2019-12-05 11:10:17
+ * @Last Modified time: 2019-12-10 18:57:36
  */
 package middleware
 
 import (
 	"bytes"
 	"errors"
+	"io/ioutil"
+	"strings"
+
 	. "github.com/wlxpkg/base"
 	"github.com/wlxpkg/base/model"
 	. "github.com/wlxpkg/zwyd"
-	"io/ioutil"
-	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -52,16 +52,9 @@ func Member() gin.HandlerFunc {
 		}
 
 		permission := getPermission(c, userID)
+		// R(permission, "permission")
 
-		var flower int64
-		if userInfo["has_flower"] == "1" {
-			flower = -1
-		} else {
-			flower = model.GetFlower(userID)
-		}
-
-		middleware := middlewareData(userInfo, permission, flower)
-		// R(middleware, "middleware")
+		middleware := middlewareData(userInfo, permission)
 
 		// 设置 example 变量
 		c.Set("middleware", middleware)
@@ -100,7 +93,7 @@ func getPermission(c *gin.Context, userID int64) bool {
 
 	clientID := c.GetHeader("client-id")
 
-	permission := checkRole(userID, route, method, clientID)
+	permission := checkRole(userID, clientID)
 	return permission
 }
 
@@ -133,21 +126,11 @@ func getRoute(path, method string, rtype int) (route string) {
 	return
 }
 
-func checkRole(userID int64, route, method, clientID string) (permission bool) {
-	// return 0
-	roleIds := model.GetRoleIds(route, method)
-	permission = false
-
-	for _, roleID := range roleIds {
-		expireAt := model.MemberRole(userID, roleID, clientID)
-
-		if expireAt == "" {
-			return false
-		}
-
-		if String2Unix(expireAt) > time.Now().Unix() {
-			return true
-		}
+func checkRole(userID int64, clientID string) bool {
+	time := model.MemberTime(userID, clientID)
+	if time == "" {
+		return false
 	}
-	return
+
+	return true
 }
