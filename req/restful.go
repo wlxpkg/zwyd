@@ -7,14 +7,17 @@
 package req
 
 import (
+	"encoding/json"
+	"errors"
+
 	. "github.com/wlxpkg/base"
 	. "github.com/wlxpkg/base/config"
 	"github.com/wlxpkg/base/log"
-	// "encoding/json"
+	"github.com/wlxpkg/base/req"
 )
 
 type Restful struct {
-	client  *HttpClient
+	client  *req.HttpClient
 	exp     bool
 	service map[string]string
 }
@@ -22,7 +25,7 @@ type Restful struct {
 func NewRestful(name string) *Restful {
 	r := new(Restful)
 	r.exp = true
-	r.client = NewClient("")
+	r.client = req.NewClient("")
 	r.setService()
 	r.GetService(name)
 	return r
@@ -49,12 +52,12 @@ func (r *Restful) setService() {
 
 // GetService 获取一个服务地址设置给 http 客户端
 func (r *Restful) GetService(name string) *Restful {
-	baseUrl, exists := r.service[name]
+	baseURL, exists := r.service[name]
 
 	if !exists {
 		log.Err("Restful.GetService 服务不存在, name:" + name)
 	}
-	r.client.SetBaseUrl(baseUrl)
+	r.client.SetBaseURL(baseURL)
 	return r
 }
 
@@ -64,7 +67,7 @@ func (r *Restful) SetJwt(jwt string) *Restful {
 	return r
 }
 
-// 设置 exp, 为 true 则不返回原始数据直接异常
+// SetExp 设置 exp, 为 true 则不返回原始数据直接异常
 // 默认 true
 func (r *Restful) SetExp(exp bool) *Restful {
 	r.exp = exp
@@ -89,8 +92,8 @@ func (r *Restful) Req(method string, route string) (data interface{}, err error)
 	// resp := "{\"code\":1,\"message\":\"\",\"data\":{\"user_id\":\"1134660407147180032\",\"avatar\":\"http:\\/\\/thirdwx.qlogo.cn\\/mmopen\\/vi_32\\/Q3auHgzwzM48ybqIC8FzI2xAbkVEY4gsyL8XSSicX1R42woyg7sUEceXJesG1QL9BOH33B26DQsZZGKMsx6r0xA\\/132\",\"nickname\":\"阿Q\",\"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6Im12T3pAMVU5Qk8ifQ.eyJqdGkiOiJtdk96QDFVOUJPIiwiaWF0IjoxNTYxNzEzNDkyLCJleHAiOjE1NjE3NTY2OTIsImFydGlmYWN0IjoiUHowaVBORm9VNUlhSExtcFpRNHVTNU9PdHVwS2dxY1giLCJ0b2tlbiI6ImI3YTVhMWI5ODMzODBhY2U1ZmIxZjJmNjkwNzk1N2I0In0.eT6O-Y0etAuv1urK5lgsFWWHuM_x9bVr9Wief9uNDDw\"}}"
 
 	if err != nil {
-		reqStr, _ := json.Marshal(r.client.data)
-		log.Warn("微服务请求失败! service: " + r.client.baseUrl + ", reqData: " + Byte2String(reqStr) + ", method: " + method + ", route: " + route)
+		reqStr, _ := json.Marshal(r.client.Data)
+		log.Warn("微服务请求失败! service: " + r.client.BaseURL + ", reqData: " + Byte2String(reqStr) + ", method: " + method + ", route: " + route)
 		return
 	}
 
@@ -110,8 +113,8 @@ func (r *Restful) serviceData(resp string, req string) (resData interface{}, err
 	 } */
 	result, err := JsonDecode(resp)
 	if err != nil {
-		reqStr, _ := json.Marshal(r.client.data)
-		log.Warn("微服务数据解析失败! service: " + r.client.baseUrl + ", reqData: " + Byte2String(reqStr) + ", resp: " + resp + ", 请求的方法:" + req)
+		reqStr, _ := json.Marshal(r.client.Data)
+		log.Warn("微服务数据解析失败! service: " + r.client.BaseURL + ", reqData: " + Byte2String(reqStr) + ", resp: " + resp + ", 请求的方法:" + req)
 		return
 	}
 

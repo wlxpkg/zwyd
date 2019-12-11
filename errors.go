@@ -1,11 +1,4 @@
-/*
- * @Description:
- * @Author: maxinyu
- * @Date: 2019-08-12 16:39:06
- * @LastEditTime: 2019-09-05 09:31:23
- * @LastEditors: zhaoyabo
- */
-package pkg
+package zwyd
 
 import "errors"
 
