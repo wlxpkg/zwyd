@@ -88,7 +88,7 @@ func (ctl *Controller) getHeaders() {
 	ctl.AppVersion = c.GetHeader("version")
 
 	appid := c.GetHeader("appid")
-	if appid != "" || appid != "0" {
+	if appid != "" && appid != "0" {
 		ctl.AppID, _ = String2Int(appid)
 	} else {
 		ctl.AppID = 1
