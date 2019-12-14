@@ -57,6 +57,7 @@ var Errs = map[string]Errors{
 	"ERR_ORDER_ALREADY_CLOSE":     Errors{21004, "订单已经关闭"},
 	"ERR_ORDER_TIME_OUT":          Errors{21005, "订单已经超时，请重新下单"},
 	"ERR_ORDER_APPLY_AGENT_PRICE": Errors{21006, "订单商品未达到申请代理的价格的数量"},
+	"ERR_ORDER_AGENT_LEAST_PRICE": Errors{21007, "订单不能低于起购价"},
 
 	"ERR_LINK_APPLY_AGENT_INVALID":       Errors{21101, "申请代理的链接失败"},
 	"ERR_LINK_APPLY_AGENT_ALREADY_AGENT": Errors{21102, "申请代理的用户已经是代理用户"},
