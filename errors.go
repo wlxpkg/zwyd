@@ -37,6 +37,7 @@ var Errs = map[string]Errors{
 	"ERR_ALBUM_GROUP_JOIN_OVER_LIMIT":   Errors{15004, "您加入的团队已达上限"},
 	"ERR_ALBUM_GROUP_PASSCODE_EXIST":    Errors{15005, "该暗号已存在"},
 	"ERR_ALBUM_GROUP_NOT_EXIST":         Errors{15006, "未找到该团队"},
+	"ERR_ALBUM_GROUP_NOT_JOIN":          Errors{15007, "您未加入该团队"},
 
 	"ERR_MATERIAL_CANNOT_PUSH":      Errors{16000, "非发布者无法发布"},
 	"ERR_MATERIAL_NOT_EXIST":        Errors{16001, "素材不存在"},
