@@ -46,6 +46,9 @@ var Errs = map[string]Errors{
 	"ERR_MATERIAL_PUBLISH_FAILED":   Errors{16004, "发布失败"},
 	"ERR_MATERIAL_PETAL_NOT_ENOUGH": Errors{16005, "花瓣不足，发布失败"},
 	"ERR_MATERIAL_NOT_COPY":         Errors{16006, "自己不能保存"},
+	"ERR_MATERIAL_BANNED":           Errors{16007, "您已被禁言"},
+	"ERR_MATERIAL_BANNED_ONEDAY":    Errors{16008, "您已被禁言一天"},
+	"ERR_MATERIAL_BANNED_FOREVER":   Errors{16009, "您已被永久禁言"},
 
 	"ERR_PAY_FUBEI_FAIL": Errors{20000, "支付请求失败"},
 
