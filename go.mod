@@ -12,10 +12,10 @@ require (
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/stretchr/testify v1.4.0
-	github.com/tidwall/gjson v1.4.0 // indirect
+	github.com/tidwall/gjson v1.5.0 // indirect
 	github.com/tidwall/pretty v1.0.1 // indirect
-	github.com/wlxpkg/base v0.0.0-20200205132225-c35ebd760594
+	github.com/wlxpkg/base v0.0.0-20200222143724-7f471916a530
 	golang.org/x/net v0.0.0-20190603091049-60506f45cf65 // indirect
-	golang.org/x/sys v0.0.0-20200202164722-d101bd2416d5 // indirect
+	golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
