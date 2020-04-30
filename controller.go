@@ -18,6 +18,7 @@ type UserInfo struct {
 	Nickname   string `json:"nickname"`
 	Pid        int64  `json:"pid"`
 	OfficialID string `json:"official_id"`
+	MiniappID  string `json:"miniapp_id"`
 }
 
 type Middleware struct {

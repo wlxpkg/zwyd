@@ -2,7 +2,7 @@
  * @Author: qiuling
  * @Date: 2019-06-18 15:01:17
  * @Last Modified by: qiuling
- * @Last Modified time: 2019-12-10 18:43:43
+ * @Last Modified time: 2020-04-30 17:24:46
  */
 package middleware
 
@@ -81,6 +81,7 @@ func middlewareData(userInfo map[string]string, permission bool) Middleware {
 		Avatar:     userInfo["avatar"],
 		Nickname:   userInfo["nickname"],
 		OfficialID: userInfo["official_id"],
+		MiniappID:  userInfo["miniapp_id"],
 		Pid:        pid,
 	}
 
