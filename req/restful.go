@@ -79,6 +79,11 @@ func (r *Restful) SetData(data map[string]string) *Restful {
 	return r
 }
 
+func (r *Restful) SetHeader(data map[string]string) *Restful {
+	r.client.AddHeaders(data)
+	return r
+}
+
 // SetSecret 内部服务请求设置 ServiceSecret
 func (r *Restful) SetSecret() *Restful {
 	r.client.AddHeader("ServiceSecret", Config.Service.Secret)
