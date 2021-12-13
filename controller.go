@@ -38,6 +38,7 @@ type Controller struct {
 	AppName    string
 	AppVersion string
 	AppID      int
+	Channel    int
 }
 
 func NewController(ctx *gin.Context) (ctl *Controller) {
@@ -87,6 +88,13 @@ func (ctl *Controller) getHeaders() {
 	ctl.ClientID = c.GetHeader("client-id")
 	ctl.AppName = c.GetHeader("client-name")
 	ctl.AppVersion = c.GetHeader("version")
+
+	channel := c.GetHeader("channel")
+	if channel != "" && channel != "0" {
+		ctl.Channel, _ = String2Int(channel)
+	} else {
+		ctl.Channel = 1
+	}
 
 	appid := c.GetHeader("appid")
 	if appid != "" && appid != "0" {
