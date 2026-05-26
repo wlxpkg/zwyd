@@ -9,7 +9,7 @@ package middleware
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"strings"
 
 	. "github.com/wlxpkg/base"
@@ -23,9 +23,9 @@ func Member() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		// 后置数据准备
-		bodyBytes, _ := ioutil.ReadAll(c.Request.Body)
-		c.Request.Body.Close()                                        //  must close
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // 重新赋值
+		bodyBytes, _ := io.ReadAll(c.Request.Body)
+		c.Request.Body.Close()                                    //  must close
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // 重新赋值
 
 		c.Set("bodyCopy", string(bodyBytes))
 

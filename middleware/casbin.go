@@ -10,7 +10,7 @@ package middleware
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"strings"
 	"time"
 
@@ -58,9 +58,9 @@ func Casbin() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 
-		bodyBytes, _ := ioutil.ReadAll(c.Request.Body)
-		c.Request.Body.Close()                                        //  must close
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // 重新赋值
+		bodyBytes, _ := io.ReadAll(c.Request.Body)
+		c.Request.Body.Close()                                    //  must close
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // 重新赋值
 
 		userInfo, err := getUser(c)
 		userID := userInfo["user_id"]

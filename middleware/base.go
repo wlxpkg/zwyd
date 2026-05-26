@@ -36,6 +36,10 @@ func Abort(c *gin.Context, e error) {
 }
 
 func getUser(c *gin.Context) (userInfo map[string]string, err error) {
+	appID := c.GetHeader("appid")
+	if appID == "" || appID == "0" {
+		appID = "1"
+	}
 	authorization := c.GetHeader("authorization")
 	jwt := strings.TrimPrefix(authorization, "Bearer ")
 
@@ -46,15 +50,29 @@ func getUser(c *gin.Context) (userInfo map[string]string, err error) {
 		return
 	}
 
-	userID, err := biz.Jwt2Token(jwt)
+	tokenData, err := biz.Jwt2Data(jwt)
 	// fmt.Printf("user_id:%+v\n", userID)
 
-	if userID == "" || err != nil {
+	if err != nil || tokenData.Uid == "" || tokenData.Aid == "" || tokenData.Aid != appID {
 		err = errors.New("ERR_INVALID_TOKEN")
 		return
 	}
 
-	userInfo = biz.TokenGetUser(userID)
+	// 游客态不做单设备互踢，只校验 jwt 自身与 app 作用域
+	if tokenData.Uid != "403" {
+		if tokenData.Sid == "" {
+			err = errors.New("ERR_INVALID_TOKEN")
+			return
+		}
+
+		session := biz.TokenGetSession(appID, tokenData.Uid)
+		if len(session) == 0 || session["sid"] == "" || session["sid"] != tokenData.Sid {
+			err = errors.New("ERR_INVALID_TOKEN")
+			return
+		}
+	}
+
+	userInfo = biz.TokenGetUser(tokenData.Uid)
 	len := len(userInfo)
 
 	if len == 0 {
